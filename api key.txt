@@ -1,0 +1,4 @@
+api.openweathermap.org/data/2.5/weather?q=Mumbai, IN&appid=ba6e856d3ea83e63610e277b4b1ee38f
+api.openweathermap.org/data/2.5/weather?q=Mumbai, IN&appid=ba6e856d3ea83e63610e277b4b1ee38f
+
+api.openweathermap.org/data/2.5/weather?lat=19.0144&lon=72.8479&appid=ba6e856d3ea83e63610e277b4b1ee38f

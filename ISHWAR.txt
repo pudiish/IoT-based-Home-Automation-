@@ -1,0 +1,295 @@
+[
+    {
+        "id": "f97028089c414224",
+        "type": "tab",
+        "label": " Earthquake Analysis",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c04609cd8d9c9e47",
+        "type": "inject",
+        "z": "f97028089c414224",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "f2d070410e4f6bdf"
+            ]
+        ]
+    },
+    {
+        "id": "f2d070410e4f6bdf",
+        "type": "http request",
+        "z": "f97028089c414224",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 250,
+        "y": 200,
+        "wires": [
+            [
+                "d835aec17e969a43"
+            ]
+        ]
+    },
+    {
+        "id": "d835aec17e969a43",
+        "type": "csv",
+        "z": "f97028089c414224",
+        "name": "",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "b4905fd228b8adcd",
+                "f3e17081959a5314",
+                "9c8a47d74af20340"
+            ]
+        ]
+    },
+    {
+        "id": "b4905fd228b8adcd",
+        "type": "switch",
+        "z": "f97028089c414224",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "6",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 340,
+        "wires": [
+            [
+                "a874e2123eaac625"
+            ]
+        ]
+    },
+    {
+        "id": "a874e2123eaac625",
+        "type": "change",
+        "z": "f97028089c414224",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Emergency",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 340,
+        "wires": [
+            [
+                "999680d323a7f415",
+                "bd265d941641372d"
+            ]
+        ]
+    },
+    {
+        "id": "f3e17081959a5314",
+        "type": "debug",
+        "z": "f97028089c414224",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "999680d323a7f415",
+        "type": "debug",
+        "z": "f97028089c414224",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "bd265d941641372d",
+        "type": "ui_text",
+        "z": "f97028089c414224",
+        "group": "83d39d3eb22d6985",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Warning =",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 750,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "9c8a47d74af20340",
+        "type": "switch",
+        "z": "f97028089c414224",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 460,
+        "wires": [
+            [
+                "abe6d174ccaae585"
+            ]
+        ]
+    },
+    {
+        "id": "abe6d174ccaae585",
+        "type": "change",
+        "z": "f97028089c414224",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Emergency",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 460,
+        "wires": [
+            [
+                "760a34aacb1c8c64",
+                "2550d7a64450b85e"
+            ]
+        ]
+    },
+    {
+        "id": "760a34aacb1c8c64",
+        "type": "debug",
+        "z": "f97028089c414224",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "2550d7a64450b85e",
+        "type": "ui_text",
+        "z": "f97028089c414224",
+        "group": "83d39d3eb22d6985",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "rms warning =",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 760,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "83d39d3eb22d6985",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "7246ae0af1a2fec7",
+        "order": 1,
+        "disp": true,
+        "width": 6
+    },
+    {
+        "id": "7246ae0af1a2fec7",
+        "type": "ui_tab",
+        "name": "earthquake analysis",
+        "icon": "dashboard",
+        "order": 5,
+        "disabled": false,
+        "hidden": false
+    }
+]
